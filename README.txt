@@ -1,1 +1,1 @@
-Atividade da aula de POO, que simula uma campeonato de f1 com varias temporadas, usando Threads.
+Atividade da aula de POO
