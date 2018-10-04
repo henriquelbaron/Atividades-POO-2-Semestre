@@ -27,7 +27,7 @@ import javax.swing.*;
  * @author Alunos
  */
 public class Cliente extends JFrame implements ActionListener, KeyListener {
-    
+
     private static final long serialVersionVID = 1L;
     private JTextArea texto;
     private JTextField txtMsg;
@@ -43,17 +43,24 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
     private JTextField txtIP;
     private JTextField txtPorta;
     private JTextField txtNome;
-    
+
+    public static void main(String[] args) throws IOException {
+
+        Cliente app = new Cliente();
+        app.conectar();
+        app.escutar();
+    }
+
     public Cliente() throws IOException {
         JLabel lblMensagem = new JLabel("Verificar!");
         txtIP = new JTextField("localhost");
-        txtPorta = new JTextField("12345");
+        txtPorta = new JTextField("8888");
         txtNome = new JTextField("Cliente");
         Object[] texts = {lblMensagem, txtIP, txtPorta, txtNome};
         JOptionPane.showMessageDialog(null, texts);
         pnlContent = new JPanel();
         texto = new JTextArea(10, 20);
-        texto.setBackground(Color.blue);
+        texto.setBackground(Color.white);
         txtMsg = new JTextField(20);
         lblHistorico = new JLabel("Histórico");
         lblMsg = new JLabel("Mensagem");
@@ -84,7 +91,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
+
     public void conectar() throws IOException {
         socket = new Socket(txtIP.getText(), Integer.parseInt(txtPorta.getText()));
         out = socket.getOutputStream();
@@ -93,7 +100,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
         bfw.write(txtNome.getText() + "\r\n");
         bfw.flush();
     }
-    
+
     public void enviarMensagem(String msg) throws IOException {
         if (msg.equals("Sair")) {
             bfw.write("Desconectado \r\n");
@@ -105,16 +112,16 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
         bfw.flush();
         txtMsg.setText("");
     }
-    
+
     public void escutar() throws IOException {
-        
+
         InputStream in = socket.getInputStream();
         InputStreamReader inr = new InputStreamReader(in);
         BufferedReader bfr = new BufferedReader(inr);
         String msg = "";
-        
+
         while (!"Sair".equalsIgnoreCase(msg)) {
-            
+
             if (bfr.ready()) {
                 msg = bfr.readLine();
                 if (msg.equals("Sair")) {
@@ -125,24 +132,23 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
             }
         }
     }
-    
-    
-    public void sair()throws IOException{
-        
+
+    public void sair() throws IOException {
+
         enviarMensagem("Sair");
         bfw.close();
         ouw.close();
         out.close();
         socket.close();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getActionCommand().equals(btnSend.getActionCommand())) {
                 enviarMensagem(txtMsg.getText());
-            }else{
-                if(e.getActionCommand().equals(btnSair.getActionCommand())){
+            } else {
+                if (e.getActionCommand().equals(btnSair.getActionCommand())) {
                     sair();
                 }
             }
@@ -150,21 +156,26 @@ public class Cliente extends JFrame implements ActionListener, KeyListener {
             e1.getMessage();
         }
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
-        
-        if(e.getKeyCode() == KeyEvent.VK_ENTER)
+
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                enviarMensagem(txtMsg.getText());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
     }
-    
+
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

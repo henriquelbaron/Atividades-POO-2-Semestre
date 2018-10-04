@@ -47,7 +47,7 @@ public class Servidor extends Thread {
     public static void main(String[] args) {
         try {
             JLabel lblMessage = new JLabel("Porta do Servidor: ");
-            JTextField txtPorta = new JTextField("12345");
+            JTextField txtPorta = new JTextField("8787");
             Object[] texts = {lblMessage, txtPorta};
             JOptionPane.showMessageDialog(null, texts);
             server = new ServerSocket(Integer.parseInt(txtPorta.getText()));
