@@ -7,6 +7,7 @@ package br.com.agenda.view;
 
 import br.com.agenda.dominio.Contato;
 import br.com.agenda.negocio.Negocio;
+import br.com.agenda.negocio.Principal;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,6 @@ public class ListaDeContatos extends javax.swing.JPanel {
         initComponents();
         List<Contato> contatos = Negocio.pesquisar("");
         adicionarListaContatosTabela(contatos);
-
     }
 
     /**
@@ -112,6 +112,11 @@ public class ListaDeContatos extends javax.swing.JPanel {
         jPanel1.add(bExcluir);
 
         bAlterar.setText("Alterar");
+        bAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAlterarActionPerformed(evt);
+            }
+        });
         jPanel1.add(bAlterar);
 
         bNovo.setText("Novo");
@@ -137,7 +142,7 @@ public class ListaDeContatos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNovoActionPerformed
-        // TODO add your handling code here:
+        Principal.adicionarNovo();
     }//GEN-LAST:event_bNovoActionPerformed
 
     private void tfCampoDeBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCampoDeBuscaActionPerformed
@@ -163,6 +168,22 @@ public class ListaDeContatos extends javax.swing.JPanel {
             bBuscarActionPerformed(null);
         }
     }//GEN-LAST:event_bExcluirActionPerformed
+
+    private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
+        Contato c = new Contato();
+        int linha = retornoTabela.getSelectedRow();
+        if (linha >= 0) {
+            String id =  (String)retornoTabela.getValueAt(linha, 0);
+            c.setId(Integer.valueOf(id));
+            c.setNome((String) retornoTabela.getValueAt(linha, 1));
+            c.setCpf((String) retornoTabela.getValueAt(linha, 2));
+            c.setEmail((String) retornoTabela.getValueAt(linha, 3));
+        }
+
+        Principal.alterar(c);
+
+
+    }//GEN-LAST:event_bAlterarActionPerformed
 
     public void adicionarListaContatosTabela(List<Contato> list) {
         String[] colunas = {"Codigo", "Nome", "CPF", "Email"};
