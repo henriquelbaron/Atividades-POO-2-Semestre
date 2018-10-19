@@ -1,6 +1,4 @@
-    package br.com.agenda.dominio;
-
-import java.util.List;
+package br.com.agenda.dominio;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,24 +15,12 @@ public class Contato {
     private String nome;
     private String cpf;
     private String email;
-    private List<Telefone> telefones;
 
-    public List<Telefone> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
-    }
-
-    public Contato(String nome, String cpf, String email) {
-       
+    public Contato(Integer id, String nome, String cpf, String email) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-    }
-
-    public Contato() {
     }
 
     

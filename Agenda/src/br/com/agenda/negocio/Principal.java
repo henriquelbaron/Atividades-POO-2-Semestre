@@ -25,14 +25,14 @@ public class Principal {
     private static FramePrincipal frame;
     
     public static void main(String[] args) {
-        Negocio.salvar(new Contato("Henrique","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Luiza","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Felipe","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Robson","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Érick","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Agostinho","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Willian","000.000.000-00","seuemail@gmail.com"));
-        Negocio.salvar(new Contato("Gabriel","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(1,"Henrique","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(2,"Luiza","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(3,"Felipe","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(4,"Robson","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(5,"Érick","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(6,"Agostinho","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(7,"Willian","000.000.000-00","seuemail@gmail.com"));
+        Negocio.adicionar(new Contato(9,"Gabriel","000.000.000-00","seuemail@gmail.com"));
         
         
         frame = new FramePrincipal();
@@ -47,15 +47,10 @@ public class Principal {
         frame.setContentPane(lista);
         frame.setVisible(true);
     }
-    public static void alterar(Contato c){
-        AdicionarNovo painel = new AdicionarNovo(c);
-        frame.setContentPane(painel);
+    
+    public static void criarNovo(){
+        frame.setCursor(AdicionarNovo);
         frame.setVisible(true);
+        
     }
-    public static void adicionarNovo(){
-        AdicionarNovo painel = new AdicionarNovo(null);
-        frame.setContentPane(painel);
-        frame.setVisible(true);
-    }
-
 }
