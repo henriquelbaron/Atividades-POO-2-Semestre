@@ -5,7 +5,16 @@ public class No {
     private Object elemento;
     private No proximo;
     private No anterior;
+    private Object valor;
 
+    public Object getValor() {
+        return valor;
+    }
+
+    public void setValor(Object valor) {
+        this.valor = valor;
+    }
+    
     public No getAnterior() {
         return anterior;
     }
