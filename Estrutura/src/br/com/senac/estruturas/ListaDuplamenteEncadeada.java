@@ -53,13 +53,13 @@ public class ListaDuplamenteEncadeada {
         No novo = new No();
         quantidade++;
         if (inicio == null) {
-            novo.setValor(valor);
+            novo.setElemento(valor);
             setPrimeiro(novo);
             setUltimo(novo);
             return true;
         } else {
             inicio.setAnterior(novo);
-            novo.setValor(valor);
+            novo.setElemento(valor);
             novo.setProximo(inicio);
             setPrimeiro(novo);
             return true;
@@ -71,13 +71,13 @@ public class ListaDuplamenteEncadeada {
         No novo = new No();
         quantidade++;
         if (fim == null) {
-            novo.setValor(valor);
+            novo.setElemento(valor);
             inicio = novo;
             fim = novo;
             return true;
         } else {
             fim.setProximo(novo);
-            novo.setValor(valor);
+            novo.setElemento(valor);
             fim = novo;
             return true;
         }
@@ -91,7 +91,7 @@ public class ListaDuplamenteEncadeada {
         } else {
             No aux = getPrimeiro();
             while (aux != null) {
-                Object vl = aux.getValor();
+                Object vl = aux.getElemento();
                 lista.add(vl);
                 aux = aux.getProximo();
             }

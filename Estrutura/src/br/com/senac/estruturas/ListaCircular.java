@@ -14,6 +14,10 @@ public class ListaCircular {
     private No inicio;
     private Integer quantidade;
 
+    public ListaCircular() {
+        this.inicio = null;
+        quantidade = 0;
+    }
     public Boolean remover(Integer i) {
         No auxiliar = inicio;
         No anterior = null;
@@ -38,11 +42,6 @@ public class ListaCircular {
         }
 
         return false;
-    }
-
-    public ListaCircular() {
-        this.inicio = null;
-        quantidade = 0;
     }
 
     public int quantDeNo() {

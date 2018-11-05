@@ -5,15 +5,14 @@ public class No {
     private Object elemento;
     private No proximo;
     private No anterior;
-    private Object valor;
 
-    public Object getValor() {
-        return valor;
+    public No() {
     }
 
-    public void setValor(Object valor) {
-        this.valor = valor;
+    public No(Object elemento) {
+        this.elemento = elemento;
     }
+
     
     public No getAnterior() {
         return anterior;
