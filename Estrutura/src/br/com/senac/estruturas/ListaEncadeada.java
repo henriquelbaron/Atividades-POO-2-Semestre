@@ -1,12 +1,30 @@
 package br.com.senac.estruturas;
 
 import br.com.senac.estruturas.Lista;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaEncadeada implements Lista {
 
     private Integer quantidade;
     private No inicio;
+    private No valor;
+
+    public No getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(No inicio) {
+        this.inicio = inicio;
+    }
+
+    public No getValor() {
+        return valor;
+    }
+
+    public void setValor(No valor) {
+        this.valor = valor;
+    }
 
     public ListaEncadeada() {
         this.quantidade = 0;
@@ -107,10 +125,15 @@ public class ListaEncadeada implements Lista {
             No anterior = null;
             while (auxiliar != null) {
                 if (auxiliar.getElemento().equals(o)) {
-                    anterior= auxiliar;
-                    auxiliar = auxiliar.getProximo();
+                    if (anterior == null) {
+                        inicio = auxiliar.getProximo();
+                    } else {
+                        anterior.setProximo(auxiliar.getProximo());
+                    }
+                    quantidade--;
                     return true;
                 }
+                anterior = auxiliar;
                 auxiliar = auxiliar.getProximo();
             }
         }
@@ -125,31 +148,25 @@ public class ListaEncadeada implements Lista {
         if (i > quantidade) {
             return false;
         }
-
         if (i == 1) {
             inicio = auxiliar.getProximo();
             quantidade--;
+            inicio = null;
             return true;
-        }else{
-            while(auxiliar != null){
-                if(indice == i){
-                    if(anterior == null){
-                        inicio=auxiliar.getProximo();
-                    }else{
-                        anterior.setProximo(auxiliar.getProximo());
-                    }
-                    break;
-                }else{
-                    anterior = auxiliar;
-                    auxiliar = auxiliar.getProximo();
-                    quantidade--;
-                    return true;
-                }
+        }
+        while (auxiliar != null) {
+            if (indice.equals(i)) {
+                anterior.setProximo(auxiliar.getProximo());
+                quantidade--;
+                inicio = null;
+                return true;
             }
+            indice++;
+            anterior = auxiliar;
+            auxiliar = auxiliar.getProximo();
         }
 
-    
-        return null;
+        return false;
     }
 
     @Override
@@ -182,5 +199,23 @@ public class ListaEncadeada implements Lista {
             return texto.substring(0, texto.length() - 1);
         }
         return texto;
+    }
+
+    public List<Object> listar() {
+        List<Object> lista = new ArrayList<>();
+        if (inicio == null) {
+            return null;
+        } else {
+            No aux = inicio;
+            while (aux != null) {
+                lista.add(aux);
+                aux = aux.getProximo();
+            }
+            return lista;
+        }
+    }
+
+    public boolean isEmpty() {
+        return this.inicio == null;
     }
 }

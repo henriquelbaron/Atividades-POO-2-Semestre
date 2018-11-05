@@ -1,8 +1,10 @@
-package br.com.senac.estruturas;
+package br.com.senac.atividade03;
+
+import br.com.senac.estruturas.*;
 
 public class No {
 
-    private Object elemento;
+    private Integer elemento;
     private No proximo;
     private No anterior;
     private Object valor;
@@ -23,11 +25,11 @@ public class No {
         this.anterior = anterior;
     }
 
-    public Object getElemento() {
+    public Integer getElemento() {
         return elemento;
     }
 
-    public void setElemento(Object elemento) {
+    public void setElemento(Integer elemento) {
         this.elemento = elemento;
     }
 

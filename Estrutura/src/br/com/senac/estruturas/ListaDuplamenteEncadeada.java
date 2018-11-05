@@ -15,13 +15,13 @@ import java.util.List;
 public class ListaDuplamenteEncadeada {
 
     private Integer quantidade;
-    private No primeiro;
-    private No ultimo;
+    private No inicio;
+    private No fim;
 
     public ListaDuplamenteEncadeada() {
         this.quantidade = 0;
-        this.primeiro = null;
-        this.ultimo = null;
+        this.inicio = null;
+        this.fim = null;
     }
 
     public Integer getQuantidade() {
@@ -33,39 +33,60 @@ public class ListaDuplamenteEncadeada {
     }
 
     public void setPrimeiro(No primeiro) {
-        this.primeiro = primeiro;
+        this.inicio = primeiro;
     }
 
     public No getPrimeiro() {
-        return primeiro;
+        return inicio;
     }
 
     public void setUltimo(No ultimo) {
-        this.ultimo = ultimo;
+        this.fim = ultimo;
     }
 
     public No getUltimo() {
-        return ultimo;
+        return fim;
     }
 
-    public void adicionar(Object o) {
-        No novoElemento = new No();
-        novoElemento.setElemento(o);
-        if (null == primeiro) {
-            primeiro = novoElemento;
-        } else {
-            No auxiliar = primeiro;
-            while (auxiliar.getProximo() != null) {
-                auxiliar = auxiliar.getProximo();
-            }
-            auxiliar.setProximo(novoElemento);
-        }
+    public boolean adicionaInicio(Object valor) {
+
+        No novo = new No();
         quantidade++;
+        if (inicio == null) {
+            novo.setValor(valor);
+            setPrimeiro(novo);
+            setUltimo(novo);
+            return true;
+        } else {
+            inicio.setAnterior(novo);
+            novo.setValor(valor);
+            novo.setProximo(inicio);
+            setPrimeiro(novo);
+            return true;
+        }
+
+    }
+
+    public boolean adicionar(Object valor) {
+        No novo = new No();
+        quantidade++;
+        if (fim == null) {
+            novo.setValor(valor);
+            inicio = novo;
+            fim = novo;
+            return true;
+        } else {
+            fim.setProximo(novo);
+            novo.setValor(valor);
+            fim = novo;
+            return true;
+        }
+
     }
 
     public List<Object> listar() {
         List<Object> lista = new ArrayList<>();
-        if (primeiro == null) {
+        if (inicio == null) {
             return null;
         } else {
             No aux = getPrimeiro();
@@ -78,59 +99,48 @@ public class ListaDuplamenteEncadeada {
         }
     }
 
-    public boolean procura(String valor) {
-        No aux = getPrimeiro();
-        while (aux != null) {
-            if (valor.equals(aux.getValor())) {
+    public String toString() {
+        String texto = "";
+        if (this.quantidade > 0) {
+            No auxiliar = inicio;
+            while (auxiliar != null) {
+                texto += auxiliar.getElemento() + ",";
+                auxiliar = auxiliar.getProximo();
+
+            }
+            return texto.substring(0, texto.length() - 1);
+        }
+        return texto;
+    }
+
+    public boolean removePos(int pos) {
+        No noAuxiliar = inicio;
+        No noAnterior = null;
+        Integer indice = 1;
+
+        if (pos > quantidade) {
+            return false;
+        }
+
+        if (pos == 1) {
+            inicio = noAuxiliar.getProximo();
+            quantidade--;
+            return true;
+        }
+
+        while (noAuxiliar != null) {
+
+            if (indice.equals(pos)) {
+                noAnterior.setProximo(noAuxiliar.getProximo());
+                quantidade--;
                 return true;
             }
-            aux = aux.getProximo();
+            indice++;
+            noAnterior = noAuxiliar;
+            noAuxiliar = noAuxiliar.getProximo();
         }
+
         return false;
     }
 
-    public boolean insereInicio(String valor) {
-        boolean procura = false;
-        procura = procura(valor);
-        if (!procura) {
-            No novo = new No();
-            quantidade++;
-            if (primeiro == null) {
-                novo.setValor(valor);
-                setPrimeiro(novo);
-                setUltimo(novo);
-                return true;
-            } else {
-                primeiro.setAnterior(novo);
-                novo.setValor(valor);
-                novo.setProximo(primeiro);
-                setPrimeiro(novo);
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public boolean insereFim(String valor) {
-        boolean procura = false;
-        procura = procura(valor);
-        if (!procura) {
-            No novo = new No();
-            quantidade++;
-            if (ultimo == null) {
-                novo.setValor(valor);
-                primeiro = novo;
-                ultimo = novo;
-                return true;
-            } else {
-                ultimo.setProximo(novo);
-                novo.setValor(valor);
-                ultimo = novo;
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
 }
